@@ -3,10 +3,10 @@
 -- 
 
 CREATE TABLE animals (
-    id int,
+    id SERIAL PRIMARY KEY,
     name varchar(20),
     date_of_birth date,
     escape_attempts int,
     neutered boolean,
-    weight_kg numeric
+    weight_kg decimal
 );
