@@ -22,7 +22,9 @@ VALUES
 BEGIN;
 UPDATE animals 
 SET species = 'unspecified';
+SELECT species FROM animals;
 ROLLBACK;
+SELECT species FROM animals;
 
 BEGIN;
 UPDATE animals 
@@ -32,6 +34,7 @@ UPDATE animals
 SET species = 'Pokemon'
 WHERE NAME NOT LIKE '%mon';
 COMMIT;
+SELECT species FROM animals;
 
 BEGIN;
 DROP TABLE animals;
