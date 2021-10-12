@@ -37,3 +37,16 @@ ADD COLUMN species_id int;
 ALTER TABLE animals
 ADD COLUMN owner_id int;
 
+ALTER TABLE animals
+ADD CONSTRAINT species_pkey
+FOREIGN KEY (species_id)
+REFERENCES species(id)
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+
+ALTER TABLE animals
+ADD CONSTRAINT owners_pkey
+FOREIGN KEY (owner_id)
+REFERENCES owners(id)
+ON UPDATE CASCADE
+ON DELETE CASCADE;
