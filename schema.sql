@@ -50,3 +50,29 @@ FOREIGN KEY (owner_id)
 REFERENCES owners(id)
 ON UPDATE CASCADE
 ON DELETE CASCADE;
+
+-- 
+
+CREATE TABLE vets
+	id SERIAL PRIMARY KEY,
+	name varchar(225),
+	age int,
+	date_of_graduation date
+)
+
+CREATE TABLE specializations (
+	species_id int,
+	vets_id int,
+	FOREIGN KEY (species_id) REFERENCES species(id),
+	FOREIGN KEY (vets_id) REFERENCES vets(id),
+	UNIQUE (species_id, vets_id)
+);
+
+CREATE TABLE visits (
+	animals_id int,
+	vets_id int,
+	date_of_the_visit timestamp,
+	FOREIGN KEY (animals_id) REFERENCES animals(id),
+	FOREIGN KEY (vets_id) REFERENCES vets(id),
+	UNIQUE (animals_id, vets_id)
+);
