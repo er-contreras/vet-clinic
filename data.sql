@@ -39,6 +39,7 @@ SELECT species FROM animals;
 BEGIN;
 DROP TABLE animals;
 ROLLBACK;
+SELECT species FROM animals;
 
 BEGIN;
 DELETE FROM animals
