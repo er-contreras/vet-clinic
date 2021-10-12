@@ -20,9 +20,10 @@ WHERE weight_kg BETWEEN 10.4 AND 17.3;
 SELECT COUNT(*) FROM animals;
 SELECT COUNT(*) FROM animals WHERE escape_attempts = 0;
 SELECT ROUND(AVG(weight_kg),4) "Average weight" FROM animals;
-SELECT * FROM animals WHERE escape_attempts > 0 AND neutered = true;
-SELECT min(weight_kg), max(weight_kg) FROM animals;
-SELECT AVG(escape_attempts) "Escape attempts"
+SELECT neutered, SUM(escape_attempts) FROM animals GROUP BY neutered;
+SELECT species, min(weight_kg), max(weight_kg) FROM animals GROUP BY species;
+SELECT species, AVG(escape_attempts) "Escape attempts"
 FROM animals
 WHERE date_of_birth >= timestamp '1990-01-01 00:00:00'
-AND date_of_birth <= timestamp '2000-01-01 00:00:00';
+AND date_of_birth <= timestamp '2000-01-01 00:00:00'
+GROUP BY species;
