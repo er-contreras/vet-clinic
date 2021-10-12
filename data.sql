@@ -18,3 +18,33 @@ VALUES
 ('Angemon', '2005-07-12', 1, true, -45),
 ('Boarmon', '2005-06-07', 7, true, 20.4),
 ('Blossom', '1998-10-13', 3, true, 17);
+
+BEGIN;
+UPDATE animals 
+SET species = 'unspecified';
+ROLLBACK;
+
+BEGIN;
+UPDATE animals 
+SET species = 'Digimon'
+WHERE NAME LIKE '%mon';
+UPDATE animals
+SET species = 'Pokemon'
+WHERE NAME NOT LIKE '%mon';
+COMMIT;
+
+BEGIN;
+DROP TABLE animals;
+ROLLBACK;
+
+BEGIN;
+DELETE FROM animals
+WHERE date_of_birth > '2022-01-01 00:00:00';
+SAVEPOINT SP1;
+UPDATE animals
+SET weight_kg = weight_kg * -1;
+ROLLBACK TO SP1;
+UPDATE animals
+SET weight_kg = weight_kg * -1
+WHERE weight_kg < 0;
+COMMIT;
