@@ -82,3 +82,24 @@ UPDATE animals SET owner_id = 4 WHERE NAME LIKE 'Blossom';
 UPDATE animals SET owner_id = 5 WHERE NAME LIKE 'Angemon';
 UPDATE animals SET owner_id = 5 WHERE NAME LIKE 'Boarmon';
 
+-- 
+
+INSERT INTO visits (animals_id, vets_id, date_of_the_visit)
+VALUES
+(1, 1, '2020-05-24'),
+(1, 3, '2020-07-22'),
+(3, 4, '2021-02-02'),
+(2, 2, '2020-01-05'),
+(2, 2, '2020-03-08'),
+(2, 2, '2020-05-14'),
+(4, 3, '2021-05-04'),
+(5, 4, '2021-02-24'),
+(7, 3, '2019-09-29'),
+(8, 4, '2020-10-03'),
+(8, 4, '2020-11-04'),
+(9, 2, '2019-01-24'),
+(9, 2, '2019-05-15'),
+(9, 2, '2020-02-27'),
+(9, 2, '2020-08-03'),
+(6, 3, '2020-05-24'),
+(6, 1, '2021-01-11');
