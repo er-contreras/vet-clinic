@@ -84,7 +84,7 @@ UPDATE animals SET owner_id = 5 WHERE NAME LIKE 'Boarmon';
 
 -- 
 
-INSERT INTO visits (animals_id, vets_id, date_of_visit)
+INSERT INTO visits (animal_id, vets_id, date_of_visit)
 VALUES
 (1, 1, '2020-05-24'),
 (1, 3, '2020-07-22'),
