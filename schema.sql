@@ -62,17 +62,27 @@ CREATE TABLE vets
 
 CREATE TABLE specializations (
 	species_id int,
-	vets_id int,
+	vet_id int,
 	FOREIGN KEY (species_id) REFERENCES species(id),
-	FOREIGN KEY (vets_id) REFERENCES vets(id),
-	UNIQUE (species_id, vets_id)
+	FOREIGN KEY (vet_id) REFERENCES vets(id),
+	UNIQUE (species_id, vet_id)
 );
 
 CREATE TABLE visits (
-	animals_id int,
-	vets_id int,
-	date_of_the_visit timestamp,
-	FOREIGN KEY (animals_id) REFERENCES animals(id),
-	FOREIGN KEY (vets_id) REFERENCES vets(id),
-	UNIQUE (animals_id, vets_id)
+	animal_id int,
+	vet_id int,
+	date_of_visit timestamp,
+	FOREIGN KEY (animal_id) REFERENCES animals(id),
+	FOREIGN KEY (vet_id) REFERENCES vets(id),
+	UNIQUE (animal_id, vet_id)
 );
+
+-- Second week
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+CREATE INDEX or_idx ON visits(animal_id ASC);
+
+CREATE INDEX or_idx_vet_id ON visits(vet_id ASC);
+
+CREATE INDEX or_idx_email ON owners(email ASC);

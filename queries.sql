@@ -70,43 +70,43 @@ GROUP BY owners.full_name;
 -- 
 
 SELECT * FROM visits 
-WHERE date_of_the_visit = (SELECT MAX(date_of_the_visit) FROM visits);
+WHERE date_of_visit = (SELECT MAX(date_of_visit) FROM visits);
 
 SELECT vets.name, COUNT(animals.name) 
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id
-INNER JOIN vets  ON vets.id = visits.vets_id 
+INNER JOIN visits ON visits.animal_id = animals.id
+INNER JOIN vets  ON vets.id = visits.vet_id 
 WHERE vets.name = 'Stephanie Mendez' 
 GROUP BY vets.name;
 
 SELECT vets.name, species.name 
 FROM specializations 
-RIGHT JOIN vets ON specializations.vets_id = vets.id
+RIGHT JOIN vets ON specializations.vet_id = vets.id
 LEFT JOIN species ON species.id = specializations.species_id;
 
-SELECT animals.name, vets.name, visits.date_of_the_visit
+SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id
-INNER JOIN vets ON vets.id = visits.vets_id 
+INNER JOIN visits ON visits.animal_id = animals.id
+INNER JOIN vets ON vets.id = visits.vet_id 
 WHERE vets.name = 'Stephanie Mendez' 
-AND visits.date_of_the_visit
+AND visits.date_of_visit
 BETWEEN '2020-04-01' 
 AND '2020-08-30';
 
-SELECT animals.name, COUNT(visits.date_of_the_visit)
+SELECT animals.name, COUNT(visits.date_of_visit)
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id 
+INNER JOIN visits ON visits.animal_id = animals.id 
 GROUP BY animals.name 
 ORDER BY COUNT(*);
 
-SELECT animals.name, vets.name, visits.date_of_the_visit
+SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id
-INNER JOIN vets  ON vets.id = visits.vets_id 
+INNER JOIN visits ON visits.animal_id = animals.id
+INNER JOIN vets  ON vets.id = visits.vet_id 
 WHERE vets.name = 'Maisy Smith' 
-ORDER BY visits.date_of_the_visit;
+ORDER BY visits.date_of_visit;
 
-SELECT visits.date_of_the_visit,
+SELECT visits.date_of_visit,
 animals.name,
 animals.escape_attempts,
 animals.neutered, 
@@ -114,22 +114,51 @@ animals.weight_kg,
 vets.name, vets.age, 
 vets.date_of_graduation
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id 
-INNER JOIN vets  ON vets.id = visits.vets_id 
-ORDER BY visits.date_of_the_visit;
+INNER JOIN visits ON visits.animal_id = animals.id 
+INNER JOIN vets  ON vets.id = visits.vet_id 
+ORDER BY visits.date_of_visit;
 
-SELECT vets.name, species.name, COUNT(visits.date_of_the_visit) AS total_visits 
+SELECT vets.name, species.name, COUNT(visits.date_of_visit) AS total_visits 
 FROM specializations 
-RIGHT JOIN vets ON specializations.vets_id = vets.id
+RIGHT JOIN vets ON specializations.vet_id = vets.id
 LEFT JOIN species ON species.id = specializations.species_id 
-INNER JOIN visits ON visits.vets_id = vets.id 
+INNER JOIN visits ON visits.vet_id = vets.id 
 WHERE species.name IS NULL 
 GROUP BY vets.name, species.name;
 
-SELECT COUNT(visits.animals_id), species.name, vets.name 
+SELECT COUNT(visits.animal_id), species.name, vets.name 
 FROM visits 
-INNER JOIN animals ON visits.animals_id = animals.id
+INNER JOIN animals ON visits.animal_id = animals.id
 INNER JOIN species ON species.id = animals.species_id
-INNER JOIN vets ON vets.id = visits.vets_id 
+INNER JOIN vets ON vets.id = visits.vet_id 
 WHERE vets.name = 'Maisy Smith' 
 GROUP BY species.name, vets.name;
+
+-- 2nd Week
+
+-- BEFORE CREATE INDEX
+SELECT COUNT(*) FROM visits where animal_id = 4;
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+-- AFTER CREATE INDEX
+EXPLAIN ANALYZE SELECT COUNT(animals_id) FROM visits WHERE animal_id = 4;
+
+-- BEFORE CREATE INDEX
+SELECT * FROM visits where vet_id = 2;
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+-- AFTER CREATE INDEX
+EXPLAIN ANALYZE SELECT COUNT(CASE WHEN animal_id < 2000000
+			 THEN 1 ELSE null END) animal_id_2000000,
+			 COUNT(CASE WHEN animal_id BETWEEN 2000001 AND 4000000 
+				   THEN 1 ELSE null END) animal_id_4000000,
+				   COUNT(CASE WHEN animal_id > 4000001 
+						 THEN 1 ELSE null END) animals_id_6000000
+						 FROM visits 
+						 WHERE animal_id = 4;
+
+
+-- BEFORE CREATE INDEX
+SELECT * FROM owners where email = 'owner_18327@mail.com';
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
+-- AFTER CREATE INDEX
+EXPLAIN ANALYZE SELECT email FROM owners where email = 'owner_18327@mail.com';
+
