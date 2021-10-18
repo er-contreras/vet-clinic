@@ -74,7 +74,7 @@ WHERE date_of_visit = (SELECT MAX(date_of_visit) FROM visits);
 
 SELECT vets.name, COUNT(animals.name) 
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id
+INNER JOIN visits ON visits.animal_id = animals.id
 INNER JOIN vets  ON vets.id = visits.vets_id 
 WHERE vets.name = 'Stephanie Mendez' 
 GROUP BY vets.name;
@@ -86,7 +86,7 @@ LEFT JOIN species ON species.id = specializations.species_id;
 
 SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id
+INNER JOIN visits ON visits.animal_id = animals.id
 INNER JOIN vets ON vets.id = visits.vets_id 
 WHERE vets.name = 'Stephanie Mendez' 
 AND visits.date_of_visit
@@ -95,13 +95,13 @@ AND '2020-08-30';
 
 SELECT animals.name, COUNT(visits.date_of_visit)
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id 
+INNER JOIN visits ON visits.animal_id = animals.id 
 GROUP BY animals.name 
 ORDER BY COUNT(*);
 
 SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id
+INNER JOIN visits ON visits.animal_id = animals.id
 INNER JOIN vets  ON vets.id = visits.vets_id 
 WHERE vets.name = 'Maisy Smith' 
 ORDER BY visits.date_of_visit;
@@ -114,7 +114,7 @@ animals.weight_kg,
 vets.name, vets.age, 
 vets.date_of_graduation
 FROM animals 
-INNER JOIN visits ON visits.animals_id = animals.id 
+INNER JOIN visits ON visits.animal_id = animals.id 
 INNER JOIN vets  ON vets.id = visits.vets_id 
 ORDER BY visits.date_of_visit;
 
@@ -126,9 +126,9 @@ INNER JOIN visits ON visits.vets_id = vets.id
 WHERE species.name IS NULL 
 GROUP BY vets.name, species.name;
 
-SELECT COUNT(visits.animals_id), species.name, vets.name 
+SELECT COUNT(visits.animal_id), species.name, vets.name 
 FROM visits 
-INNER JOIN animals ON visits.animals_id = animals.id
+INNER JOIN animals ON visits.animal_id = animals.id
 INNER JOIN species ON species.id = animals.species_id
 INNER JOIN vets ON vets.id = visits.vets_id 
 WHERE vets.name = 'Maisy Smith' 
