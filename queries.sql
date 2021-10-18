@@ -70,7 +70,7 @@ GROUP BY owners.full_name;
 -- 
 
 SELECT * FROM visits 
-WHERE date_of_the_visit = (SELECT MAX(date_of_the_visit) FROM visits);
+WHERE date_of_visit = (SELECT MAX(date_of_visit) FROM visits);
 
 SELECT vets.name, COUNT(animals.name) 
 FROM animals 
@@ -84,29 +84,29 @@ FROM specializations
 RIGHT JOIN vets ON specializations.vets_id = vets.id
 LEFT JOIN species ON species.id = specializations.species_id;
 
-SELECT animals.name, vets.name, visits.date_of_the_visit
+SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
 INNER JOIN visits ON visits.animals_id = animals.id
 INNER JOIN vets ON vets.id = visits.vets_id 
 WHERE vets.name = 'Stephanie Mendez' 
-AND visits.date_of_the_visit
+AND visits.date_of_visit
 BETWEEN '2020-04-01' 
 AND '2020-08-30';
 
-SELECT animals.name, COUNT(visits.date_of_the_visit)
+SELECT animals.name, COUNT(visits.date_of_visit)
 FROM animals 
 INNER JOIN visits ON visits.animals_id = animals.id 
 GROUP BY animals.name 
 ORDER BY COUNT(*);
 
-SELECT animals.name, vets.name, visits.date_of_the_visit
+SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
 INNER JOIN visits ON visits.animals_id = animals.id
 INNER JOIN vets  ON vets.id = visits.vets_id 
 WHERE vets.name = 'Maisy Smith' 
-ORDER BY visits.date_of_the_visit;
+ORDER BY visits.date_of_visit;
 
-SELECT visits.date_of_the_visit,
+SELECT visits.date_of_visit,
 animals.name,
 animals.escape_attempts,
 animals.neutered, 
@@ -116,9 +116,9 @@ vets.date_of_graduation
 FROM animals 
 INNER JOIN visits ON visits.animals_id = animals.id 
 INNER JOIN vets  ON vets.id = visits.vets_id 
-ORDER BY visits.date_of_the_visit;
+ORDER BY visits.date_of_visit;
 
-SELECT vets.name, species.name, COUNT(visits.date_of_the_visit) AS total_visits 
+SELECT vets.name, species.name, COUNT(visits.date_of_visit) AS total_visits 
 FROM specializations 
 RIGHT JOIN vets ON specializations.vets_id = vets.id
 LEFT JOIN species ON species.id = specializations.species_id 
