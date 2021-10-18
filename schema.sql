@@ -80,3 +80,5 @@ CREATE TABLE visits (
 -- Second week
 
 ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+CREATE INDEX or_idx ON visits(animal_id ASC);
