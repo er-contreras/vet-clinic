@@ -136,11 +136,29 @@ GROUP BY species.name, vets.name;
 
 -- 2nd Week
 
-EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
-
+-- BEFORE CREATE INDEX
 SELECT COUNT(*) FROM visits where animal_id = 4;
-SELECT * FROM visits where vet_id = 2;
-SELECT * FROM owners where email = 'owner_18327@mail.com';
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+-- AFTER CREATE INDEX
+EXPLAIN ANALYZE SELECT COUNT(animals_id) FROM visits WHERE animal_id = 4;
 
-EXPLAIN ANALYZE SELECT COUNT(*) FROM visits
-WHERE animal_id = 4;
+-- BEFORE CREATE INDEX
+SELECT * FROM visits where vet_id = 2;
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+-- AFTER CREATE INDEX
+EXPLAIN ANALYZE SELECT COUNT(CASE WHEN animal_id < 2000000
+			 THEN 1 ELSE null END) animal_id_2000000,
+			 COUNT(CASE WHEN animal_id BETWEEN 2000001 AND 4000000 
+				   THEN 1 ELSE null END) animal_id_4000000,
+				   COUNT(CASE WHEN animal_id > 4000001 
+						 THEN 1 ELSE null END) animals_id_6000000
+						 FROM visits 
+						 WHERE animal_id = 4;
+
+
+-- BEFORE CREATE INDEX
+SELECT * FROM owners where email = 'owner_18327@mail.com';
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
+-- AFTER CREATE INDEX
+EXPLAIN ANALYZE SELECT email FROM owners where email = 'owner_18327@mail.com';
+
