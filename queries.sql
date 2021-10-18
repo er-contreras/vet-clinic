@@ -133,3 +133,14 @@ INNER JOIN species ON species.id = animals.species_id
 INNER JOIN vets ON vets.id = visits.vet_id 
 WHERE vets.name = 'Maisy Smith' 
 GROUP BY species.name, vets.name;
+
+-- 2nd Week
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+
+SELECT COUNT(*) FROM visits where animal_id = 4;
+SELECT * FROM visits where vet_id = 2;
+SELECT * FROM owners where email = 'owner_18327@mail.com';
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits
+WHERE animal_id = 4;
