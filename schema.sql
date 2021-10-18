@@ -62,19 +62,19 @@ CREATE TABLE vets
 
 CREATE TABLE specializations (
 	species_id int,
-	vets_id int,
+	vet_id int,
 	FOREIGN KEY (species_id) REFERENCES species(id),
-	FOREIGN KEY (vets_id) REFERENCES vets(id),
-	UNIQUE (species_id, vets_id)
+	FOREIGN KEY (vet_id) REFERENCES vets(id),
+	UNIQUE (species_id, vet_id)
 );
 
 CREATE TABLE visits (
 	animal_id int,
-	vets_id int,
+	vet_id int,
 	date_of_visit timestamp,
 	FOREIGN KEY (animal_id) REFERENCES animals(id),
-	FOREIGN KEY (vets_id) REFERENCES vets(id),
-	UNIQUE (animal_id, vets_id)
+	FOREIGN KEY (vet_id) REFERENCES vets(id),
+	UNIQUE (animal_id, vet_id)
 );
 
 -- Second week
