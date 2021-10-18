@@ -75,19 +75,19 @@ WHERE date_of_visit = (SELECT MAX(date_of_visit) FROM visits);
 SELECT vets.name, COUNT(animals.name) 
 FROM animals 
 INNER JOIN visits ON visits.animal_id = animals.id
-INNER JOIN vets  ON vets.id = visits.vets_id 
+INNER JOIN vets  ON vets.id = visits.vet_id 
 WHERE vets.name = 'Stephanie Mendez' 
 GROUP BY vets.name;
 
 SELECT vets.name, species.name 
 FROM specializations 
-RIGHT JOIN vets ON specializations.vets_id = vets.id
+RIGHT JOIN vets ON specializations.vet_id = vets.id
 LEFT JOIN species ON species.id = specializations.species_id;
 
 SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
 INNER JOIN visits ON visits.animal_id = animals.id
-INNER JOIN vets ON vets.id = visits.vets_id 
+INNER JOIN vets ON vets.id = visits.vet_id 
 WHERE vets.name = 'Stephanie Mendez' 
 AND visits.date_of_visit
 BETWEEN '2020-04-01' 
@@ -102,7 +102,7 @@ ORDER BY COUNT(*);
 SELECT animals.name, vets.name, visits.date_of_visit
 FROM animals 
 INNER JOIN visits ON visits.animal_id = animals.id
-INNER JOIN vets  ON vets.id = visits.vets_id 
+INNER JOIN vets  ON vets.id = visits.vet_id 
 WHERE vets.name = 'Maisy Smith' 
 ORDER BY visits.date_of_visit;
 
@@ -115,14 +115,14 @@ vets.name, vets.age,
 vets.date_of_graduation
 FROM animals 
 INNER JOIN visits ON visits.animal_id = animals.id 
-INNER JOIN vets  ON vets.id = visits.vets_id 
+INNER JOIN vets  ON vets.id = visits.vet_id 
 ORDER BY visits.date_of_visit;
 
 SELECT vets.name, species.name, COUNT(visits.date_of_visit) AS total_visits 
 FROM specializations 
-RIGHT JOIN vets ON specializations.vets_id = vets.id
+RIGHT JOIN vets ON specializations.vet_id = vets.id
 LEFT JOIN species ON species.id = specializations.species_id 
-INNER JOIN visits ON visits.vets_id = vets.id 
+INNER JOIN visits ON visits.vet_id = vets.id 
 WHERE species.name IS NULL 
 GROUP BY vets.name, species.name;
 
@@ -130,6 +130,6 @@ SELECT COUNT(visits.animal_id), species.name, vets.name
 FROM visits 
 INNER JOIN animals ON visits.animal_id = animals.id
 INNER JOIN species ON species.id = animals.species_id
-INNER JOIN vets ON vets.id = visits.vets_id 
+INNER JOIN vets ON vets.id = visits.vet_id 
 WHERE vets.name = 'Maisy Smith' 
 GROUP BY species.name, vets.name;
