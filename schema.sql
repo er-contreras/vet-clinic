@@ -76,3 +76,7 @@ CREATE TABLE visits (
 	FOREIGN KEY (vets_id) REFERENCES vets(id),
 	UNIQUE (animals_id, vets_id)
 );
+
+-- Second week
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
