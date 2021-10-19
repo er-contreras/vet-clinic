@@ -5,6 +5,7 @@
 
 
 ## Getting Started
+![Screen Shot 2021-10-19 at 9 45 33](https://user-images.githubusercontent.com/67211919/137934509-8aa9772a-b188-4e32-8fe8-386536c04d70.png)
 
 This repository includes files with plain SQL that can be used to recreate a database:
 
