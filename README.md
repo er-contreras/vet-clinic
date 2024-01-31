@@ -18,9 +18,9 @@ This repository includes files with plain SQL that can be used to recreate a dat
 
 👤 **Christian Erick Contreras**
 
-- GitHub: [@eri8-9](https://github.com/eri8-9)
-- Linkedin: [LinkedIn](https://www.linkedin.com/in/christian-erick/)
-- Twitter: [@ChristianErick_](https://twitter.com/ChristianErick_)
+- GitHub: [@er-contreras](https://github.com/er-contreras)
+- Linkedin: [LinkedIn](https://www.linkedin.com/in/er-contreras/)
+- Twitter: [@er_contreras_](https://twitter.com/er_contreras_)
 
 ## Show your support
 
